@@ -24,6 +24,18 @@
 cmake_minimum_required(VERSION 2.6)
 project(rtlsdr C)
 
+if(STATIC_BUILD)
+   set(CMAKE_EXE_LINKER_FLAGS -static)
+   set(CMAKE_FIND_LIBRARY_SUFFIXES .a)
+   set(CMAKE_EXE_LINK_DYNAMIC_C_FLAGS)       # remove -Wl,-Bdynamic
+   set(CMAKE_EXE_LINK_DYNAMIC_CXX_FLAGS)
+   set(CMAKE_SHARED_LIBRARY_C_FLAGS)         # remove -fPIC
+   set(CMAKE_SHARED_LIBRARY_CXX_FLAGS)
+   set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS)    # remove -rdynamic
+   set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS)
+   message(STATUS "creating a fully static binary")
+endif(STATIC_BUILD)
+
 #select the release build type by default to get optimization flags
 if(NOT CMAKE_BUILD_TYPE)
    set(CMAKE_BUILD_TYPE "Release")
