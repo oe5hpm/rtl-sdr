@@ -414,7 +414,7 @@ int main(int argc, char **argv)
 			samp_rate = (uint32_t)atofs(optarg);
 			break;
 		case 'p':
-			port = optarg;
+			port = strdup(optarg);
 			break;
 		case 'b':
 			buf_num = atoi(optarg);
